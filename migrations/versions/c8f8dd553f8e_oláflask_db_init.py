@@ -1,8 +1,8 @@
-"""Create Table Usurio
+"""oláflask db init
 
-Revision ID: dfb4cf26a465
+Revision ID: c8f8dd553f8e
 Revises: 
-Create Date: 2024-08-23 08:15:24.013275
+Create Date: 2024-08-30 08:21:52.582886
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'dfb4cf26a465'
+revision = 'c8f8dd553f8e'
 down_revision = None
 branch_labels = None
 depends_on = None

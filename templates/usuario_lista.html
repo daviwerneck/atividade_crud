@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 
 {% block conteudo %}
-
+    {% set mensagens = get_flashed_messages() %}
+    {% if mensagens %}
+        {% for msg in mensagens %}
+            {{ msg }}
+        {% endfor %}
+    {% endif %}
     <a href="/usuario/add">+ Adicionar</a>
     <table>
         <tr>
             <th>Nome</th>
-            <th>Email</th>
+            <th>E-mail</th>
             <th>Idade</th>
         </tr>
         {% for usuario in dados %}
