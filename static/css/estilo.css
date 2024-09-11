@@ -1,3 +1,47 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+
+header{
+    background-image: url("/static/img/chuva.gif");
+    height: 6rem;
+}
+
+nav{
+    background-color:purple;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 3rem;
+    align-items: center;
+}
+nav a{
+    color:aliceblue;
+    text-decoration: none;
+    font-size:xx-large;
+}
+
+main{
+    display: block;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 12rem);
+}
+
+main h1{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main section{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding-top:7rem;
+}
+
 a, input{
     display:block;
 }
@@ -12,4 +56,37 @@ table, tr, td, th{
 div.message{
     color: red;
     font-weight: bold;
+}
+
+footer{
+    background-color: purple;
+    color: aliceblue;
+    padding: 1rem;
+}
+
+main table{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+main div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 4rem;
+
+}
+main div a{
+    text-decoration: none;
+    color: green;
+}
+
+fieldset{
+    width: fit-content;
+    height: fit-content;
+    flex-direction: column;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid black;
 }

@@ -12,7 +12,8 @@
 # pip install Flask-SQLAlchemy
 # pip install Flask-Migrate
 # pip install Flask-Script
-# pip install pymsql
+# pip install pymysql
+
 # flask db init
 # flask db migrate -m "Migração Inicial"
 # flask db upgrade
@@ -22,7 +23,7 @@ from flask import Flask, render_template, request, flash, redirect
 app = Flask(__name__)
 from database import db
 from flask_migrate import Migrate
-from models import Usuario
+from models import Fornecedor
 app.config['SECRET_KEY'] = 'cd6ec8a03ee6252de83e921bd4be5e016819ed51221599fea40e5cbfd110ecce'
 
 # drive://usuario:senha@servidor/banco_de_dados
@@ -37,82 +38,70 @@ migrate = Migrate(app, db)
 def index():
     return render_template('index.html')
 
-@app.route('/aula')
-@app.route('/aula/<nome>')    
-@app.route('/aula/<nome>/<curso>')
-@app.route('/aula/<nome>/<curso>/<int:ano>')
-def aula(nome = 'João', curso = 'Informática', ano = 1):
-    dados = {'nome':nome, 'curso':curso, "ano":ano}
-    return render_template('aula.html', dados_curso = dados)
-
-@app.route('/form')
-def form():
-    return render_template('form.html')
-
 @app.route('/dados', methods=['POST'])
 def dados():
     flash('Dados enviados!!')
     dados = request.form
     return render_template('dados.html', dados=dados)
 
-@app.route('/usuario')
-def usuario():
-    u = Usuario.query.all()
-    return render_template('usuario_lista.html', dados = u)
+@app.route('/fornecedor')
+def fornecedor():
+    f = Fornecedor.query.all()
+    return render_template('fornecedor_lista.html', dados = f)
 
-@app.route('/usuario/add')
-def usuario_add():
-    return render_template('usuario_add.html')
+@app.route('/fornecedor/add')
+def fornecedor_add():
+    return render_template('fornecedor_add.html')
 
-@app.route('/usuario/save', methods=['POST'])
-def usuario_save():
+@app.route('/fornecedor/save', methods=['POST'])
+def fornecedor_save():
     nome = request.form.get('nome')
-    email = request.form.get('email')
-    idade = request.form.get('idade')
-    if nome and email and idade:
-        usuario = Usuario(nome, email, idade)
-        db.session.add(usuario)
+    contato = request.form.get('contato')
+    cidade = request.form.get('cidade')
+    if nome and contato and cidade:
+        fornecedor = Fornecedor(nome, contato, cidade)
+        db.session.add(fornecedor)
         db.session.commit()
-        flash('Usuário cadastrado com sucesso!!!')
-        return redirect('/usuario')
+        flash('Fornecedor cadastrado com sucesso!!!')
+        return redirect('/fornecedor')
     else:
         flash('Preencha todos os campos!!!')
-        return redirect('/usuario/add')
+        return redirect('/fornecedor/add')
 
-@app.route('/usuario/remove/<int:id>')
-def usuario_remove(id):
-    usuario = Usuario.query.get(id)
-    if usuario:
-        db.session.delete(usuario)
+@app.route('/fornecedor/remove/<int:id_fornecedor>')
+def fornecedor_remove(id_fornecedor):
+    fornecedor = Fornecedor.query.get(id_fornecedor)
+    if fornecedor:
+        db.session.delete(fornecedor)
         db.session.commit()
-        flash('Usuário removido com sucesso!!!')
-        return redirect('/usuario')
+        flash('Fornecedor removido com sucesso!!!')
+        return redirect('/fornecedor')
     else:
         flash('Caminho incorreto!!!')
-        return redirect('/usuario')
+        return redirect('/fornecedor')
     
-@app.route('/usuario/edita/<int:id>')
-def usuario_edita(id):
-    usuario = Usuario.query.get(id)
-    return render_template('usuario_edita.html', dados = usuario)
+@app.route('/fornecedor/edita/<int:id_fornecedor>')
+def fornecedor_edita(id_fornecedor):
+    fornecedor = Fornecedor.query.get(id_fornecedor)
+    return render_template('fornecedor_edita.html', dados = fornecedor)
 
-@app.route('/usuario/editasave', methods=['POST'])
-def usuario_editasave():
+@app.route('/fornecedor/editasave', methods=['POST'])
+def fornecedor_editasave():
     nome = request.form.get('nome')
-    email = request.form.get('email')
-    idade = request.form.get('idade')
-    id = request.form.get('id')
-    if id and nome and email and idade:
-        usuario = Usuario.query.get(id)
-        usuario.nome = nome
-        usuario.email = email
-        usuario.idade = idade
+    contato = request.form.get('contato')
+    cidade = request.form.get('cidade')
+    id_fornecedor = request.form.get('id_fornecedor')
+    if id_fornecedor and nome and contato and cidade:
+        fornecedor = Fornecedor.query.get(id_fornecedor)
+        fornecedor.nome = nome
+        fornecedor.contato = contato
+        fornecedor.cidade = cidade
         db.session.commit()
         flash('Dados atualizados com sucesso!!!')
-        return redirect('/usuario')
+        return redirect('/fornecedor')
     else:
         flash('Faltando dados!!!')
-        return redirect('/usuario')
+        return redirect('/fornecedor')
 
 
 if __name__ == '__main__':

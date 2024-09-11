@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+{% set mensagens = get_flashed_messages() %}
+
+<form action="/fornecedor/save" method="post">
+    <fieldset>
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome">
+        <label for="contato">Contato:</label>
+        <input type="text" name="contato" id="contato">
+        <label for="cidade">Cidade:</label>
+        <input type="text" name="cidade" id="cidade">
+        <button type="submit">Salvar</button>
+    </fieldset>
+</form>
+
+{% if mensagens %}
+{% for msg in mensagens %}
+<div class="message">
+    {{ msg }}
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

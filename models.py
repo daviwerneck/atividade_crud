@@ -1,16 +1,16 @@
 from database import db
 
-class Usuario(db.Model):
-    __tablename__="usuario"
-    id = db.Column(db.Integer, primary_key = True)
+class Fornecedor(db.Model):
+    __tablename__="fornecedor"
+    id_fornecedor = db.Column(db.Integer, primary_key = True)
     nome = db.Column(db.String(100))
-    email = db.Column(db.String(100))
-    idade = db.Column(db.Integer)
+    contato = db.Column(db.String(100))
+    cidade = db.Column(db.String(50))
 
-    def __init__(self, nome, email, idade):
+    def __init__(self, nome, contato, cidade):
         self.nome = nome
-        self.email = email
-        self.idade = idade
+        self.contato = contato
+        self.cidade = cidade
 
     def __repr__(self):
-        return "<Usuario {}>".format(self.nome)
+        return "<Fornecedor {}>".format(self.nome)
